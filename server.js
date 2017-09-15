@@ -54,6 +54,22 @@ router.route('/bears/:bear_id')
 			if(err) res.send(err);
 			res.json(bear);
 		});
+	})
+	.patch(function(req, res){
+		Bear.findById(req.params.bear_id, function(err, bear){
+			if(err) res.send(err);
+			
+			console.log(bear);
+			bear.name = req.body.name;
+
+			//save the bear
+			bear.save(function(err){
+				if(err) res.send(err);
+				res.json({message: 'Bear updated'});
+			});
+
+		
+		})
 	});
 
 //preface all with the api/ route
